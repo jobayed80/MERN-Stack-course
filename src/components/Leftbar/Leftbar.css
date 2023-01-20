@@ -1,0 +1,108 @@
+/* this part for leftbar.js */
+
+.leftbar-part {
+    height: 100vh;
+    margin: 29px;
+    background: #5F35F5;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    text-align: center;
+
+}
+
+/* width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center; */
+.leftbar-part .image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.leftbar-part .image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-top: 35px;
+
+
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+
+}
+
+ul li {
+    list-style: none;
+}
+
+.leftbar-part .list-icons ul li {
+    position: relative;
+    margin-top: 80px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 85%;
+    margin-left: auto;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+}
+
+.leftbar-part .list-icons ul li a {
+    color: #BAD1FF;
+    font-size: 42px;
+
+
+}
+
+.leftbar-part .list-icons ul li:last-child {
+    margin-top: 100px;
+}
+
+.leftbar-part .list-icons ul .active {
+    background: #fff;
+}
+
+.leftbar-part .list-icons ul ::after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 7px;
+    background: #5F35F5;
+    top: 0;
+    right: 0;
+    border-bottom-left-radius: 29px;
+    border-top-left-radius: 29px;
+}
+
+.leftbar-part .display-Name {
+    color: #fff;
+    font-size: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.leftbar-box {
+    width: 450px;
+    height: 450px;
+    background: #ceb4b4;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background: #000;
+}

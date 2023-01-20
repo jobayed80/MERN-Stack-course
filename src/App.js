@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+
+import PhoneAuthentication from './pages/Login/PhoneAuthentication.js';
+// etar mane hocce je page e dukte cai setar access
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import Home from './pages/Home';
+import UserCheck from './pages/Login/UserCheck';
+import Registration from './pages/Registration/Registration.jsx';
+import Login from './pages/Login/Login.jsx';
+
+
+
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Login></Login> */}
+      {/* <PhoneAuthentication></PhoneAuthentication> */}
+      {/* <Raiyan></Raiyan> */}
+      {/* <Login></Login> */}
+      <BrowserRouter>
+        <Routes>
+
+          <Route path="/" element={<Registration></Registration>}> </Route>
+          <Route path="/login" element={<Login></Login>}> </Route>
+          <Route path="/home" element={<Home/>}> </Route>
+          <Route path="/ucheck" element={<UserCheck/>}> </Route>
+          <Route path="/phone" element={<PhoneAuthentication/>}> </Route>
+
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

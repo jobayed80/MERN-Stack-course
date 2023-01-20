@@ -1,0 +1,41 @@
+
+/* this part for Search.jsx */
+.search {
+    margin-top: 35px;
+    position: relative;
+}
+
+.search input {
+    padding: 17px 78px;
+    width: 100%;
+    -webkit-box-shadow: 0px 6px 23px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 6px 23px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 6px 23px 0px rgba(0, 0, 0, 0.4);
+    border: 0;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+.search .searchIcon{
+    position: absolute;
+    top: 50%;
+    left:22px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+.search .searchDots{
+    color: #5F35F5;
+    position: absolute;
+    right: 22px;
+    top: 52%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}

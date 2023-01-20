@@ -1,0 +1,187 @@
+
+
+/* This part for Login */
+#login-part .left {
+
+    margin-right: 50px;
+}
+
+#login-part .left h1 {
+    color: #11175D;
+    font-weight: 700;
+    font-size: 35px;
+    font-family: 'Nunito', sans-serif;
+
+    margin-top: 225px;
+}
+
+#login-partt .left .content {
+    color: #C3C5D7;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 50px;
+    margin-top: -15px;
+}
+
+#login-part .left .MuiInputBase-input {
+    color: #11175D;
+    font-weight: 500;
+    font-size: 20px;
+    font-family: 'Nunito', sans-serif;
+    line-height: 29px;
+
+}
+
+#login-part .left Button {
+    border-radius: 86px;
+    -webkit-border-radius: 86px;
+    -moz-border-radius: 86px;
+    -ms-border-radius: 86px;
+    -o-border-radius: 86px;
+}
+
+#login-part .left .already-Account .already-content {
+    padding-top: 15px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #03014C;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#login-part .left .already-Account .already-content .goTopage {
+    color: #EA6C00;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+}
+
+/* ekhane login and signin button */
+#login-part .MuiButtonBase-root {
+    color: #FFFFFF;
+    text-transform: capitalize;
+}
+
+#login-part .left .loginAuth {
+    display: flex;
+    gap: 10px;
+    width: 370px;
+    justify-content: space-around;
+}
+
+#login-part .left .loginAuth .google {
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 29px;
+    border: 1px solid red;
+    border-radius: 4px;
+    padding: 12px 10px;
+    font-size: 12px;
+    font-weight: 550;
+    /*display: inline-block;
+    */
+    cursor: pointer;
+    margin-bottom: 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#login-part .left .loginAuth .facebook {
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    margin-top: 29px;
+    gap: 10px;
+    border: 1px solid red;
+    border-radius: 4px;
+    font-weight: 550;
+    padding: 1px 10px;
+    font-size: 12px;
+    /*display: inline-block;
+    */
+    cursor: pointer;
+    margin-bottom: 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#login-part .left .loginAuth .phone {
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    gap: 10px;
+    font-weight: 550;
+    border: 1px solid red;
+    border-radius: 4px;
+    padding: 12px 10px;
+    font-size: 12px;
+    /*display: inline-block;
+    */
+    cursor: pointer;
+    margin-bottom: 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#login-part .left .loginAuth .github {
+    max-width: 50%;
+    display: flex;
+    font-weight: 550;
+    align-items: center;
+    margin-top: 12px;
+    gap: 10px;
+    border: 1px solid red;
+    border-radius: 4px;
+    padding: 12px 10px;
+    font-size: 12px;
+    /*display: inline-block;
+    */
+    cursor: pointer;
+    margin-bottom: 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#login-part .MuiFormHelperText-root {
+    color: red;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+#login-part .MuiAlert-message {
+    color: red;
+    font-size: 12px;
+}
+
+#login-part .resetPass p {
+    width: 370px;
+    text-align: right;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: blue;
+    margin-top: 6px;
+    display: block;
+    cursor: pointer;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+
+}
+
+#login-part .resetPass p:hover {
+    color: darkcyan;
+}
