@@ -1,12 +1,26 @@
 import React from 'react'
+import './UserList.css'
 import { Grid } from '@mui/material'
 import { TbDotsVertical } from 'react-icons/tb'
-import './FriendList.css'
-// dhiovghyd8fgorydtfguhjdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortf
+import { AiOutlinePlus } from 'react-icons/ai'
 
-const FriendList = () => {
+// read data from realdatabase
+import { getDatabase, ref, onValue} from "firebase/database";
+import { useEffect } from 'react'
+
+const UserList = () => {
+
+    const db = getDatabase();
+
+    useEffect(()=>{
+        const starCountRef = ref(db, 'USERS/');
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log('usersData', data)
+          });
+    },[])
     return (
-        <div className='friendList'>
+        <div className='userList'>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <h2>Friend Request</h2>
@@ -26,12 +40,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image' style={{ marginTop: "5px" }}>
                     <img src="./images/requ1.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Jobayed</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -41,12 +55,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image'>
                     <img src="./images/requ2.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Hossain</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -57,12 +71,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image'>
                     <img src="./images/requ4.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Rabbi</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -73,12 +87,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image'>
                     <img src="./images/requ5.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Jobayed Hossain</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -89,12 +103,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image'>
                     <img src="./images/requ1.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Jannatul Bushra</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -110,7 +124,7 @@ const FriendList = () => {
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
                 <Grid item xs={3} className="button">
-                    <p>Today, 8:56pm</p>
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -118,12 +132,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image' style={{ marginTop: "5px" }}>
                     <img src="./images/requ1.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Jobayed</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -133,12 +147,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image'>
                     <img src="./images/requ2.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Hossain</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -149,12 +163,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image'>
                     <img src="./images/requ4.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Rabbi</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -165,12 +179,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image'>
                     <img src="./images/requ5.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Jobayed Hossain</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -181,12 +195,12 @@ const FriendList = () => {
                 <Grid item xs={3} className='image'>
                     <img src="./images/requ1.png" alt="" />
                 </Grid>
-                <Grid item xs={5} className="name">
+                <Grid item xs={6} className="name">
                     <h2>Jannatul Bushra</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
+                <Grid item xs={3} className="button">
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -202,7 +216,7 @@ const FriendList = () => {
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
                 <Grid item xs={3} className="button">
-                    <p>Today, 8:56pm</p>
+                    <button><AiOutlinePlus></AiOutlinePlus></button>
                 </Grid>
             </Grid>
 
@@ -213,4 +227,4 @@ const FriendList = () => {
     )
 }
 
-export default FriendList
+export default UserList

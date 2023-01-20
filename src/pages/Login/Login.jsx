@@ -221,7 +221,7 @@ const Login = () => {
 
 
 
-    /*
+    
 
     // ------------------------------------- Used for Phone Authentication ------=========================== STart
     let [phone, setPhone] = useState("")
@@ -375,7 +375,7 @@ const Login = () => {
 
     // ------------------------------------- Used for Phone Authentication ------=========================== STart
 
-    */
+    
     
 
 
@@ -394,7 +394,7 @@ const Login = () => {
 
             
             {/* -------------------------------- This part for Phone Authentication --------------------------Start */}
-             {/* <Container maxWidth="sm"> 
+             <Container maxWidth="sm"> 
             <h2>Login Form</h2>
                 <form onSubmit={onSignInSubmit}>
                     <Grid container spacing={2}>
@@ -462,7 +462,7 @@ const Login = () => {
 
                 </div>
 
-            </Container> <br></br>  <br></br> <br></br>  */}
+            </Container> <br></br>  <br></br> <br></br> 
             {/* -------------------------------- This part for Phone Authentication ----------------------------End */}
             
         

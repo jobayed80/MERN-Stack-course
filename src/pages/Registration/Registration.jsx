@@ -13,7 +13,7 @@ import './Registration.css'
 
 
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
-
+import { getDatabase, ref, set } from "firebase/database";
 
 const Registration = () => {
 
@@ -33,8 +33,6 @@ const Registration = () => {
     let [errorConfirmPassword, setErrorConfirmPassword] = useState("")
     let [errorPasswordMatch, setErrorPasswordMatch] = useState("")
     let [firebaseALreadyUsed, setFirebaseALreadyUsed] = useState("")
-
-
 
 
     //    Sign in Successfully sweet alert2
@@ -104,7 +102,17 @@ const Registration = () => {
                         displayName: fullName//, photoURL: "https://example.com/jane-q-user/profile.jpg"
 
                     }).then(() => {
-                        console.log(user.displayName)
+                            // ekhane jokhn username r email dibo tokhn seta realtime database add hbe
+                            console.log(user.displayName)
+                            const db = getDatabase();
+                            set(ref(db, 'USERS/' + auth.currentUser.uid), { //auth.currentUser.uid dewyar mane holo user id pele then ami multiple data store korbo but new data replace hbena
+                                
+                                username: fullName,
+                                email: email,
+                                password: password,
+                                // profile_picture: imageUrl
+                            });
+
                     }).catch((error) => {
                         console.log(error)
                     });
@@ -149,9 +157,9 @@ const Registration = () => {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-  
+
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
+        event.preventDefault();
     };
 
 
@@ -260,7 +268,7 @@ const Registration = () => {
 
                                     </p>
                                 </FormControl> */}
-                                
+
 
                                 <br></br>
                                 <TextField
@@ -273,7 +281,6 @@ const Registration = () => {
                                     value={confirmPassword}
                                 />
                                 <br></br>
-
                                 <Button onClick={handleSubmit} style={{ width: "370px", marginTop: "36px", padding: "15px 0" }} variant="contained" disableElevation>
                                     Sign Up
                                 </Button>
