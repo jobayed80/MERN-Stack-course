@@ -11,6 +11,7 @@ import Leftbar from '../components/Leftbar/Leftbar.jsx';
 import GroupList from '../components/GroupList/GroupList.jsx';
 import Search from '../components/Search/Search.jsx';
 import FriendRequest from '../components/FriendRequest/FriendRequest.jsx';
+import FriendList from '../components/FriendList/FriendList.jsx';
 
 
 
@@ -109,7 +110,7 @@ const Home = () => {
           <FriendRequest></FriendRequest>
         </Grid>
         <Grid item xs={3}>
-         middle right
+            <FriendList></FriendList>
         </Grid>
         <Grid item xs={3}>
           right
