@@ -1,14 +1,13 @@
 import React from 'react'
-import './GroupList.css'
-import {TbDotsVertical} from 'react-icons/tb'
-import {Grid} from '@mui/material'
-
-const GroupList = () => {
-  return (
-    <div className='gruopList'>
+import { TbDotsVertical } from 'react-icons/tb'
+import './FriendRequest.css'
+import { Grid } from '@mui/material'
+const FriendRequest = () => {
+    return (
+        <div className='friendRequest'>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <h2>Group List</h2>
+                    <h2>Friend Request</h2>
                 </Grid>
                 <Grid item xs={5}>
 
@@ -23,14 +22,14 @@ const GroupList = () => {
 
             <Grid container spacing={2} className="box">
                 <Grid item xs={3} className='image' style={{marginTop:"5px"}}>
-                    <img src="./images/groupList1.png" alt="" />
+                    <img src="./images/requ1.png" alt="" />
                 </Grid>
                 <Grid item xs={6} className="name">
-                    <h2>Friends Reunion</h2>
+                    <h2>Jobayed Hossain Rabi</h2>
                     <h4>Hi Guys, Wassup!</h4>
                 </Grid>
                 <Grid item xs={3} className="button">
-                    <button>Join</button>
+                    <button>Accept</button>
                 </Grid>
             </Grid>
 
@@ -38,78 +37,75 @@ const GroupList = () => {
 
             <Grid container spacing={2} className="box">
                 <Grid item xs={3} className='image'>
+                    <img src="./images/requ2.png" alt="" />
+                </Grid>
+                <Grid item xs={6} className="name">
+                    <h2>Jobayed Hossain</h2>
+                    <h4>Hi Guys, Wassup!</h4>
+                </Grid>
+                <Grid item xs={3} className="button">
+                    <button>Accept</button>
+                </Grid>
+            </Grid>
+
+
+            {/* box-3 */}
+
+            <Grid container spacing={2} className="box">
+                <Grid item xs={3} className='image'>
+                    <img src="./images/requ4.png" alt="" />
+                </Grid>
+                <Grid item xs={6} className="name">
+                    <h2>Jobayed Hossain</h2>
+                    <h4>Hi Guys, Wassup!</h4>
+                </Grid>
+                <Grid item xs={3} className="button">
+                    <button>Accept</button>
+                </Grid>
+            </Grid>
+
+
+            {/* box-3 */}
+
+            <Grid container spacing={2} className="box">
+                <Grid item xs={3} className='image'>
+                    <img src="./images/requ5.png" alt="" />
+                </Grid>
+                <Grid item xs={6} className="name">
+                    <h2>Jobayed Hossain</h2>
+                </Grid>
+                <Grid item xs={3} className="button">
+                    <button>Accept</button>
+                </Grid>
+            </Grid>
+
+
+            {/* box-3 */}
+
+            <Grid container spacing={2} className="box">
+                <Grid item xs={3} className='image'>
+                    <img src="./images/requ1.png" alt="" />
+                </Grid>
+                <Grid item xs={6} className="name">
+                    <h2>Jobayed Hossain</h2>
+                </Grid>
+                <Grid item xs={3} className="button">
+                    <button>Accept</button>
+                </Grid>
+            </Grid>
+
+
+            {/* box-3 */}
+
+            <Grid container spacing={2} className="box">
+                <Grid item xs={3} className='image'>
                     <img src="./images/groupList2.png" alt="" />
                 </Grid>
                 <Grid item xs={6} className="name">
-                    <h2>Friends Forever</h2>
-                    <h4>Good to see you.</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Join</button>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/groupList4.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Crazy Cousins</h2>
-                    <h4>What plans today?</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Join</button>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/groupList1.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
                     <h2>Jobayed Hossain</h2>
-                    <h4>What plans today?</h4>
                 </Grid>
                 <Grid item xs={3} className="button">
-                    <button>Join</button>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/groupList2.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jobayed Hossain</h2>
-                    <h4>What plans today?</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Join</button>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/groupList4.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jobayed Hossain</h2>
-                    <h4>What plans today?</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Join</button>
+                    <button>Accept</button>
                 </Grid>
             </Grid>
 
@@ -119,7 +115,7 @@ const GroupList = () => {
 
 
         </div>
-  )
+    )
 }
 
-export default GroupList
+export default FriendRequest

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import Leftbar from '../components/Leftbar/Leftbar.jsx';
 import GroupList from '../components/GroupList/GroupList.jsx';
 import Search from '../components/Search/Search.jsx';
+import FriendRequest from '../components/FriendRequest/FriendRequest.jsx';
 
 
 
@@ -105,6 +106,7 @@ const Home = () => {
         <Grid item xs={4}>
           <Search></Search>
           <GroupList></GroupList>
+          <FriendRequest></FriendRequest>
         </Grid>
         <Grid item xs={3}>
          middle right

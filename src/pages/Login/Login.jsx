@@ -19,7 +19,8 @@ import { IoCloseSharp } from "react-icons/io";
 // Used for PhoneInput with Country
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
-import { getPadTime } from '../../Timer/getPadTime';
+import { getPadTime } from '../Timer/getPadTime'
+
 
 
 
@@ -298,7 +299,6 @@ const Login = () => {
     // ------- This part for Resend OTP Code Start--------
     let [timeleft, setTimeleft] = useState(2 * 60)
     let [isCounting, setIsCounting] = useState(true)
-
     let minutes = getPadTime(Math.floor(timeleft / 60))
     let seconds = getPadTime(timeleft - minutes * 60)
 
@@ -376,6 +376,7 @@ const Login = () => {
     // ------------------------------------- Used for Phone Authentication ------=========================== STart
 
     */
+    
 
 
 
