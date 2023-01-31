@@ -1,8 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TbDotsVertical } from 'react-icons/tb'
 import './FriendRequest.css'
-import { Grid } from '@mui/material'
+import { Alert, Grid } from '@mui/material'
+
+
+import { getDatabase, ref, onValue } from "firebase/database";
+import { useState } from 'react'
+import { getAuth } from "firebase/auth";
+
 const FriendRequest = () => {
+
+    let auth = getAuth();
+    const db = getDatabase();
+    const [friendRequest, setFriendRequest] = useState([])
+    const [noFriendRequest , setNoFriendRequest] = useState("")
+
+    useEffect(() => {
+        const requestArr = []
+        const FriendRequestRef = ref(db, 'FriendRequests/');
+        onValue(FriendRequestRef, (snapshot) => {
+
+            snapshot.forEach((item) => {
+                if (item.val().ReciverID == auth.currentUser.uid) {
+
+                    requestArr.push({
+                        Name: item.val().Name,
+                        ReciverID: item.val().ReciverID,
+                        SendeID: item.val().SendeID,
+                        SendeName: item.val().SendeName
+                    })
+                }
+                else{
+                    setNoFriendRequest("No Friend Requests")
+                }
+            })
+            // const data = snapshot.val();
+            // console.log("FriendRequest",data)
+            setFriendRequest(requestArr)
+
+        });
+    }, [])
+
+
     return (
         <div className='friendRequest'>
             <Grid container spacing={2}>
@@ -20,94 +59,31 @@ const FriendRequest = () => {
 
             {/* box-1 */}
 
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image' style={{marginTop:"5px"}}>
-                    <img src="./images/requ1.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jobayed Hossain Rabi</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Accept</button>
-                </Grid>
-            </Grid>
+            {
+                friendRequest.map(item => (
+                    
+                        <Grid container spacing={2} className="box">
+                            <Grid item xs={3} className='image' style={{ marginTop: "5px" }}>
+                                <img src="./images/groupList1.png" alt="" />
+                            </Grid>
+                            <Grid item xs={6} className="name">
+                                <h2>{item.Name}</h2>
+                                <h4>{item.email}</h4>
+                            </Grid>
+                            <Grid item xs={3} className="button">
+                                <button>Accept</button>
+                            </Grid>
+                        </Grid>
+                        
+                        // <Alert severity='info'>{noFriendRequest}</Alert>
+                ))
+            }
 
-            {/* box-2 */}
+            {
+               friendRequest.length<=0 &&
+                <Alert style={{marginTop:"40px"}} severity='info'>{noFriendRequest}</Alert>
+            }
 
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ2.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jobayed Hossain</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Accept</button>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ4.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jobayed Hossain</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Accept</button>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ5.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jobayed Hossain</h2>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Accept</button>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ1.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jobayed Hossain</h2>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Accept</button>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/groupList2.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jobayed Hossain</h2>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <button>Accept</button>
-                </Grid>
-            </Grid>
 
 
 

@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import UserCheck from './pages/Login/UserCheck';
 import Registration from './pages/Registration/Registration.jsx';
 import Login from './pages/Login/Login.jsx';
+import Practice from './Practice/Practice.jsx';
 
 
 
@@ -16,10 +17,12 @@ import Login from './pages/Login/Login.jsx';
 function App() {
   return (
     <div className="App">
+      {/* <Practice></Practice> */}
       {/* <Login></Login> */}
       {/* <PhoneAuthentication></PhoneAuthentication> */}
       {/* <Raiyan></Raiyan> */}
       {/* <Login></Login> */}
+  
       <BrowserRouter>
         <Routes>
 

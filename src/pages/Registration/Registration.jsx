@@ -5,15 +5,20 @@ import { Button, Form, Grid, Container, TextField, InputAdornment, IconButton, F
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { Alert, Box, Collapse } from '@mui/material'
+import { Alert, Box, Collapse, Modal, Typography } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './Registration.css'
 
 
 
+
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database"; // used for realtime database
+
+
+
+
 
 const Registration = () => {
 
@@ -97,21 +102,21 @@ const Registration = () => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user)
+                    console.log(user.creationTime)
                     // ekhane user name collect kora hcce,,,then user profile e name show kora jabe
                     updateProfile(auth.currentUser, {
                         displayName: fullName//, photoURL: "https://example.com/jane-q-user/profile.jpg"
 
                     }).then(() => {
-                            // ekhane jokhn username r email dibo tokhn seta realtime database add hbe
-                            console.log(user.displayName)
-                            const db = getDatabase();
-                            set(ref(db, 'USERS/' + auth.currentUser.uid), { //auth.currentUser.uid dewyar mane holo user id pele then ami multiple data store korbo but new data replace hbena
-                                
-                                username: fullName,
-                                email: email,
-                                password: password,
-                                // profile_picture: imageUrl
-                            });
+                        // ekhane jokhn username r email dibo tokhn seta realtime database add hbe
+                        const db = getDatabase();
+                        set(ref(db, 'USERS/' + auth.currentUser.uid), { //auth.currentUser.uid dewyar mane holo user id pele then ami multiple data store korbo but new data replace hbena
+
+                            username: fullName,
+                            email: email,
+                            password: password,
+                            // profile_picture: imageUrl
+                        });
 
                     }).catch((error) => {
                         console.log(error)
@@ -164,6 +169,16 @@ const Registration = () => {
 
 
 
+    // used for modal
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
 
 
 
@@ -173,11 +188,13 @@ const Registration = () => {
 
             <Container>
 
+
                 <Grid container spacing={2}>
 
                     <Grid item xs={6}>
 
                         <div className='left'>
+
                             <h1>Get started with easily register</h1>
                             <p className='content'>Free register and you can enjoy it</p>
 
@@ -290,7 +307,10 @@ const Registration = () => {
 
                                 <div className='already-Account'>
                                     <p className='already-content'>Already  have an account ? <Link className='goTopage' to={'/login'}>Sign In</Link> </p>
+
                                 </div>
+
+
 
 
 

@@ -35,16 +35,18 @@
     font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 17px;
     color: #000000;
 }
 
-.userList .box>.name h4 {
+.userList .box>.name h5 {
     font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 12px;
     color: rgba(77, 77, 77, 0.75);
+    word-break: break-all;
+  
 }
 
 .userList .box>.button {

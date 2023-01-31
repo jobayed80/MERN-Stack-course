@@ -1,25 +1,47 @@
 import React from 'react'
 import './Login.css'
-import { Button, Form, Grid, Container, TextField, InputAdornment, IconButton, FormControl, InputLabel, OutlinedInput } from '@mui/material'
+import {
+    Button, Form, Grid, Container, TextField, InputAdornment, IconButton, FormControl, InputLabel, OutlinedInput
+    , Modal, Typography
+} from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
-import { getAuth, signInWithEmailAndPassword, RecaptchaVerifier, signInWithPhoneNumber, 
-sendPasswordResetEmail , signInWithPopup, GoogleAuthProvider , 
-GithubAuthProvider , signOut 
-}
- from 'firebase/auth'
+import {
+    getAuth, signInWithEmailAndPassword, RecaptchaVerifier, signInWithPhoneNumber,
+    sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider,
+    GithubAuthProvider, signOut
+} from 'firebase/auth'
+import { getDatabase, ref, set } from "firebase/database"; // used for realtime database
+
 import { useState, useEffect } from 'react'
 import { FcGoogle, FcPhone } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { FaTwitter } from 'react-icons/fa'
 import Swal from 'sweetalert2'
-import {Alert , Box , Collapse}  from '@mui/material'
+import { Alert, Box, Collapse } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import { IoCloseSharp } from "react-icons/io";
 
 // Used for PhoneInput with Country
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import PhoneInput, { formatPhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 import { getPadTime } from '../Timer/getPadTime'
+import { Tabs, Tab } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+// used for Phone Authentication Modal
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 370,
+    height: 370,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 
 
@@ -29,7 +51,7 @@ const Login = () => {
     const auth = getAuth(); //Firebse
     const navigate = useNavigate()
     const [open, setOpen] = React.useState(false); //this for alert notice
-
+    const [key, setKey] = useState('home');
 
     let [email, setEmail] = useState("")
     let [errorEmail, setErrorEmail] = useState("")
@@ -37,6 +59,19 @@ const Login = () => {
     let [errorPassword, setErrorPassword] = useState("")
     let [errorPasswordLength, setErrorPasswordLength] = useState("")
     let [firebaseError, setFirebaseError] = useState("")
+    let [numberTypeValid, setNumberTypeValid] = useState("")
+
+
+    // used for modal
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
 
 
 
@@ -81,15 +116,15 @@ const Login = () => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user)
-                    
+
                     Toast.fire({
                         icon: 'success',
                         title: 'Signed in successfully'
                     })
                     navigate('/ucheck')
-                    
 
-                    
+
+
                 })
                 .catch((error) => {
                     const errorCode = error.code
@@ -117,7 +152,7 @@ const Login = () => {
             setErrorEmail("please enter email address")
 
         }
-        else{
+        else {
             sendPasswordResetEmail(auth, email)
                 .then(() => {
                     setPassword("")
@@ -127,17 +162,17 @@ const Login = () => {
                         title: 'Password reset email sent! - check it'
                     })
                 })
-            .catch((error) => {
-                setErrorEmail("")
-                const errorCode = error.code;
-                if((errorCode.includes("user-not-found"))){
-                    setFirebaseError("Email is not found! please enter valid email")
-                    setOpen(true)
-                }
-                
-            });
+                .catch((error) => {
+                    setErrorEmail("")
+                    const errorCode = error.code;
+                    if ((errorCode.includes("user-not-found"))) {
+                        setFirebaseError("Email is not found! please enter valid email")
+                        setOpen(true)
+                    }
+
+                });
         }
-        
+
     }
 
 
@@ -159,8 +194,6 @@ const Login = () => {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                console.log(credential)
-                
                 console.log(user)
                 navigate('/home')
                 // ...
@@ -221,7 +254,7 @@ const Login = () => {
 
 
 
-    
+
 
     // ------------------------------------- Used for Phone Authentication ------=========================== STart
     let [phone, setPhone] = useState("")
@@ -375,8 +408,7 @@ const Login = () => {
 
     // ------------------------------------- Used for Phone Authentication ------=========================== STart
 
-    
-    
+
 
 
 
@@ -392,57 +424,59 @@ const Login = () => {
 
         <div id='login-part'>
 
-            
+
             {/* -------------------------------- This part for Phone Authentication --------------------------Start */}
-             <Container maxWidth="sm"> 
-            <h2>Login Form</h2>
+            <Container maxWidth="sm">
+                
+                {/* <h2>Login Forms</h2>
+                
                 <form onSubmit={onSignInSubmit}>
                     <Grid container spacing={2}>
+                        <div id="sign-in-button"></div>
+                        <Grid item xs={12} className="gird">
+
+                            <PhoneInput
+                                placeholder="Enter phone number"
+                                international={true}
+                                countryCallingCodeEditable={false}
+                                nableSearch={true}
+                                value={phone}
+                                onChange={setPhone} />
+
+                           
+                            <input type="submit" value="Submit"></input>
+                        </Grid>
+
+
+                        <div id="recaptcha-container"></div>
+
+
+                    </Grid>
+                </form> */}
+
+                {/* <div>
+                    <h2>Enter OTP</h2>
+                    <form onSubmit={onSubmitOTP}>
+                        <Grid container spacing={2}>
                             <div id="sign-in-button"></div>
                             <Grid item xs={12} className="gird">
 
-                            <PhoneInput
-                                international
-                                countryCallingCodeEditable={false}
-                                defaultCountry="BD"
-                                nableSearch={true}
-                                name="mobile"
-                                value={phone}
-                                onChange={setPhone}/>
-                            
-                            <input type="submit" value="Submit"></input>    
-                            </Grid>
-                            
-                            
-                            <div  id="recaptcha-container"></div>
-                            
-
-                    </Grid>
-                </form>
-
-                <div>
-                <h2>Enter OTP</h2>
-                    <form onSubmit={onSubmitOTP}>
-                        <Grid container spacing={2}>
-                                <div id="sign-in-button"></div>
-                                <Grid item xs={12} className="gird">
-
                                 <input type="number" name="otp" placeholder="OTP Number" onChange={handleChange} />
-                                
-                                <input type="submit" value="Submit"></input>    
-                                </Grid>
-                                
-                                
-                                <div  id="recaptcha-container"></div>
-                                
+
+                                <input type="submit" value="Submit"></input>
+                            </Grid>
+
+
+                             <div id="recaptcha-container"></div> 
+
 
                         </Grid>
                     </form>
-                </div>
+                </div> */}
 
-                <div className='Resend'>
+                {/* <div className='Resend'>
 
-                
+
 
                     <form>
                         <h1>
@@ -454,18 +488,124 @@ const Login = () => {
 
                         <button onClick={resendOTP}>Resends OTP</button>
                         <button onClick={hadleLogout}>Logout</button>
-                       
-                        
+
+
                     </form>
 
 
 
+                </div> */}
+                            
+
+                <div className='phoneModal'>
+
+
+                    <Modal
+                        hideBackdrop
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description">
+                        <Box sx={{ ...style }} className="modalBox">
+
+                            <Typography id="modal-modal-description" sx={{ mt: 0 }}>
+
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} className="gird">
+
+                                    </Grid>
+                                    <Grid item xs={3} className="gird">
+                                        <Button className='btnModalClose' onClick={handleClose}>Close</Button>
+                                    </Grid>
+                                </Grid>
+
+                            </Typography>
+
+                            <Tabs
+                                id="controlled-tab-example"
+                                activeKey={key}
+                                onSelect={(k) => setKey(k)}
+                                className="mb-3"
+                            >
+                                <Tab eventKey="home" title="Home" style={{ width: "100%" }}>
+
+                                    <Typography id="modal-modal-title" variant="h6" component="h1">
+                                        Phone Authentication
+                                    </Typography>
+
+                                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+
+                                        <form onSubmit={onSignInSubmit}>
+
+                                            <Grid container spacing={2} >
+                                                <div id="sign-in-button"></div>
+                                                <Grid item xs={12} className="gird">
+
+                                                    <PhoneInput
+                                                        style={{ width: "100%" }}
+                                                        placeholder="Enter phone number"
+                                                        international={true}
+                                                        countryCallingCodeEditable={false}
+                                                        nableSearch={true}
+                                                        value={phone}
+                                                        onChange={setPhone}
+
+                                                        error={phone ? (isValidPhoneNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required'} />
+
+                                                </Grid>
+
+                                                <Grid item xs={12} className="gird">
+
+                                                    <Typography style={{ fontSize: "15px" }} id="modal-modal-description" sx={{ mt: -1 }}>
+                                                        <Grid container spacing={1}>
+
+                                                            <Grid item xs={5} className="gird">
+                                                                
+                                                                <small>Is valid: {phone && isValidPhoneNumber(phone) ? 'true' : 'false'}</small>
+                                                            </Grid>
+                                                            <Grid item xs={7} className="gird">
+                                                                <small>National: {phone && formatPhoneNumber(phone)}</small>
+                                                            </Grid>
+                                                            <Grid item xs={12} className="gird">
+                                                                <small>International: {phone && formatPhoneNumberIntl(phone)}</small>
+                                                            </Grid>
+
+                                                        </Grid>
+                                                    </Typography>
+
+                                                </Grid>
+
+                                                <Grid item xs={12} className="gird">
+                                                    <input className='btnSUBMIT' style={{ width: "100%", padding: "10px", marginTop: '2px' }} type="submit" value="Submit"></input>
+                                                </Grid>
+
+                                                <div id="recaptcha-container"></div>
+
+
+                                            </Grid>
+
+                                        </form>
+
+                                    </Typography>
+
+
+                                </Tab>
+                                <Tab eventKey="profile" title="Profile" style={{ width: "100%" }}>
+                                    nnnnnnnnnnnnnnnnnnnnnnnnn
+                                </Tab>
+
+                            </Tabs>
+
+
+
+                        </Box>
+                    </Modal>
                 </div>
 
-            </Container> <br></br>  <br></br> <br></br> 
+            </Container> <br></br>  <br></br> <br></br>
             {/* -------------------------------- This part for Phone Authentication ----------------------------End */}
-            
-        
+
+
 
 
             <Container>
@@ -477,49 +617,75 @@ const Login = () => {
                         <div className='left'>
                             <h1>Login to your account!</h1>
 
-                            <div className='loginAuth'>
-                                <div className='google' onClick={handleGoogleSignIn}>
-                                    <FcGoogle />
-                                    <p className='go-content'>
-                                        Login with Google
-                                    </p>
+                            <div className="social-Media" style={{width:"370px"}}>
 
-                                </div>
-                                <div className='facebook'>
-                                    <BsFacebook />
-                                    <p className='fb-content'>
-                                        Login with Facebook
-                                    </p>
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                    
+                                    <Grid xs={6}>
+                                        <div className='loginAuth'>
+                                            <div className='google' onClick={handleGoogleSignIn}>
+                                                <div>
+                                                    <FcGoogle />
+                                                </div>
+                                                <div>
+                                                    <p className='go-content'>
+                                                        Login with Google
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Grid>
 
-                                </div>
+                                    <Grid xs={6}>
+                                        <div className='loginAuth' onClick={handleOpen}>
+                                            <div className='phone'>
+                                                <FcPhone />
+                                                <p className='phn-content'>
+                                                    Login with Phone
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </Grid>
+                                    
+                                </Grid>
+
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                    <Grid xs={6}>
+
+                                        <div className='loginAuth'>
+                                            <div className='facebook'>
+                                                <BsFacebook />
+                                                <p className='fb-content'>
+                                                    Login with Facebook
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </Grid>
+
+                                    <Grid xs={6}>
+                                        <div className='loginAuth' onClick={handleOpen}>
+                                            <div className='github' onClick={handleTwitterLogin}>
+                                                <FaTwitter />
+                                                <p className='it-content'>
+                                                    Login with Github
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </Grid>
+                                    
+                                </Grid>
 
                             </div>
 
-                            <div className='loginAuth'>
-                                <div className='phone'>
-                                    <FcPhone />
-                                    <p className='phn-content'>
-                                        Login with Phone
-                                    </p>
-
-                                </div>
-                                <div className='github' onClick={handleTwitterLogin}>
-                                    <FaTwitter />
-                                    <p className='it-content'>
-                                        Login with Github
-                                    </p>
-
-                                </div>
-
-                            </div>
 
                             
-
+                          
                             <div className='alert'>
                                 {
                                     firebaseError ?
                                         <div className='alert-notice'>
-                                            <Box sx={{ width: '370px' , marginTop:"20px"}}>
+                                            <Box sx={{ width: '370px', marginTop: "2px" }}>
                                                 <Collapse in={open}>
                                                     <Alert severity="error"
                                                         action={
@@ -531,8 +697,8 @@ const Login = () => {
                                                                     setOpen(false);
                                                                 }}
                                                             >
-                                                              x  {/* <CloseIcon fontSize="inherit"  /> */}
-                                                                
+                                                                x  {/* <CloseIcon fontSize="inherit"  /> */}
+
                                                             </IconButton>
                                                         }
                                                         sx={{ mb: 2 }}
@@ -552,7 +718,7 @@ const Login = () => {
                                     id="demo-helper-text-misaligned"
                                     label="Email Address"
                                     type="email"
-                                    style={{ width: "370px", marginTop: "25px" }}
+                                    style={{ width: "370px", marginTop: "2px" }}
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
                                 />
@@ -563,7 +729,7 @@ const Login = () => {
                                     id="demo-helper-text-misaligned"
                                     label="Password"
                                     type="password"
-                                    style={{ width: "370px", marginTop: "36px" }}
+                                    style={{ width: "370px", marginTop: "30px" }}
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}
                                 />
@@ -575,7 +741,7 @@ const Login = () => {
 
 
 
-                                <Button onClick={handleLogin} style={{ width: "370px", marginTop: "36px", padding: "15px 0" }} variant="contained" disableElevation>
+                                <Button onClick={handleLogin} style={{ width: "370px", marginTop: "20px", padding: "15px 0" }} variant="contained" disableElevation>
                                     Login to Continue
                                 </Button>
 
