@@ -53,7 +53,7 @@ const UserList = () => {
 
             snapshot.forEach((item) => {
                 
-                requestArr.push(item.val().ReciverID)  // ekhane sorasori reciver id proyojon ei jnno array use korci just,,,
+                requestArr.push(item.val().ReciverID+item.val().SendeID)  // ekhane sorasori reciver id proyojon ei jnno array use korci just,,,
                 
             })
             // const data = snapshot.val();
@@ -86,10 +86,11 @@ const UserList = () => {
         
 
           set(PerRequList_Auto_Generated_ID, {
-            Name: auth.currentUser.displayName,
+            // Name: auth.currentUser.displayName,
+            SenderID: auth.currentUser.uid,
+            SenderName: auth.currentUser.displayName,
             ReciverID: info.id,
-            SendeID: auth.currentUser.uid,
-            SendeName: auth.currentUser.displayName
+            ReciverName: info.username
         });
         setChange(!change) //etar mane hoolo requester er + icon click korar por check icon cole asbe
         Swal.fire({
@@ -135,7 +136,7 @@ const UserList = () => {
                             
                         </Grid>
                         {
-                            friendRequest.includes(item.id) ?
+                            friendRequest.includes(item.id+auth.currentUser.uid) || friendRequest.includes(auth.currentUser.uid+item.id) ?
                             <Grid item xs={3} className="button">
                             <button onClick={()=>handleFriendRequest(item)}><BsCheckLg></BsCheckLg></button>
                             </Grid>
@@ -144,7 +145,7 @@ const UserList = () => {
                             <button onClick={()=>handleFriendRequest(item)}><AiOutlinePlus></AiOutlinePlus></button>
                             </Grid>
                             
-
+                           
                         }
                     </Grid>
             ))}

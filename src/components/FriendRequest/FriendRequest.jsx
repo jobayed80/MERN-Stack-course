@@ -4,9 +4,11 @@ import './FriendRequest.css'
 import { Alert, Grid } from '@mui/material'
 
 
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, set , push , onValue } from "firebase/database";
 import { useState } from 'react'
 import { getAuth } from "firebase/auth";
+
+import Swal from 'sweetalert2'
 
 const FriendRequest = () => {
 
@@ -24,10 +26,11 @@ const FriendRequest = () => {
                 if (item.val().ReciverID == auth.currentUser.uid) {
 
                     requestArr.push({
-                        Name: item.val().Name,
+                        SenderName: item.val().SenderName,
+                        SenderID: item.val().SenderID,
                         ReciverID: item.val().ReciverID,
-                        SendeID: item.val().SendeID,
-                        SendeName: item.val().SendeName
+                        ReciverName: item.val().ReciverName
+                        
                     })
                 }
                 else{
@@ -42,6 +45,29 @@ const FriendRequest = () => {
     }, [])
 
 
+
+
+    let handleAcceptFriend= (friends)=>{
+        console.log(friends)
+        const firnedsListRef = ref(db, 'Friends/');
+        const Per_FriendList_Auto_GeneratedID = push(firnedsListRef);
+        set(Per_FriendList_Auto_GeneratedID, {
+            SenderName:friends.SenderName,
+            ReciverName: friends.ReciverName
+        });
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: friends.SenderName,
+            text:"friend requested accepted",
+            // title: 'friend request done',
+            showConfirmButton: false,
+            timer: 2500
+          })
+        
+    }
+
+
     return (
         <div className='friendRequest'>
             <Grid container spacing={2}>
@@ -50,7 +76,7 @@ const FriendRequest = () => {
                 </Grid>
                 <Grid item xs={5}>
 
-                </Grid>
+                </Grid> 
                 <Grid item xs={1}>
                     <TbDotsVertical></TbDotsVertical>
                 </Grid>
@@ -67,11 +93,12 @@ const FriendRequest = () => {
                                 <img src="./images/groupList1.png" alt="" />
                             </Grid>
                             <Grid item xs={6} className="name">
-                                <h2>{item.Name}</h2>
-                                <h4>{item.email}</h4>
+                                <h2>{item.SenderName}</h2>
+                                <small>{item.SenderID}</small>
+
                             </Grid>
                             <Grid item xs={3} className="button">
-                                <button>Accept</button>
+                                <button onClick={()=> handleAcceptFriend(item)}>Accept</button>
                             </Grid>
                         </Grid>
                         

@@ -2,14 +2,47 @@ import React from 'react'
 import { Grid } from '@mui/material'
 import { TbDotsVertical } from 'react-icons/tb'
 import './FriendList.css'
-// dhiovghyd8fgorydtfguhjdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortfdortf
+
+import { getDatabase, ref, onValue} from "firebase/database";
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const FriendList = () => {
+
+    const db = getDatabase();
+    const [friendListArr , setFriendListArr] = useState([])
+
+
+
+
+    useEffect(()=>{
+        const friends=[]
+        const friendsRef = ref(db, 'Friends/');
+        onValue(friendsRef, (snapshot) =>{
+            snapshot.forEach((item)=>{
+                friends.push({
+                    SENDERname:item.val().SenderName
+                    
+                })
+                setFriendListArr(friends)
+                console.log('FriendlIst',friends)
+            })
+        })
+    },[])
+
+
+
+
+
+
+
+
+
     return (
         <div className='friendList'>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <h2>Friend Request</h2>
+                    <h2>Friends</h2>
                 </Grid>
                 <Grid item xs={5}>
 
@@ -20,191 +53,34 @@ const FriendList = () => {
 
             </Grid>
 
-            {/* box-1 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image' style={{ marginTop: "5px" }}>
-                    <img src="./images/requ1.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Jobayed</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
-
-            {/* box-2 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ2.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Hossain</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
+         
 
 
-            {/* box-3 */}
 
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ4.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Rabbi</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
+            {
+                friendListArr.map(item=>(
 
+                    <Grid container spacing={2} className="box">
+                    <Grid item xs={3} className='image' style={{ marginTop: "5px" }}>
+                        <img src="./images/requ1.png" alt="" />
+                    </Grid>
+                    <Grid item xs={5} className="name">
+                        <h2>{item.SENDERname}</h2>
+                        <h4>Hi Guys, Wassup!</h4>
+                    </Grid>
+                    <Grid item xs={4} className="button">
+                        <p>Today, 8:56pm</p>
+                    </Grid>
+                    </Grid>
 
-            {/* box-3 */}
+                ))
+            
+            }
 
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ5.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Jobayed Hossain</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
+           
 
 
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ1.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Jannatul Bushra</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/groupList2.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jarif AL Sami</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image' style={{ marginTop: "5px" }}>
-                    <img src="./images/requ1.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Jobayed</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
-
-            {/* box-2 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ2.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Hossain</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ4.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Rabbi</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ5.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Jobayed Hossain</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/requ1.png" alt="" />
-                </Grid>
-                <Grid item xs={5} className="name">
-                    <h2>Jannatul Bushra</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={4} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
-
-
-            {/* box-3 */}
-
-            <Grid container spacing={2} className="box">
-                <Grid item xs={3} className='image'>
-                    <img src="./images/groupList2.png" alt="" />
-                </Grid>
-                <Grid item xs={6} className="name">
-                    <h2>Jarif AL Sami</h2>
-                    <h4>Hi Guys, Wassup!</h4>
-                </Grid>
-                <Grid item xs={3} className="button">
-                    <p>Today, 8:56pm</p>
-                </Grid>
-            </Grid>
+           
 
 
 
