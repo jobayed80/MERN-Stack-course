@@ -4,9 +4,10 @@ import { Grid } from '@mui/material'
 import { TbDotsVertical } from 'react-icons/tb'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BsCheckLg } from 'react-icons/bs'
-import { getAuth} from "firebase/auth";
+import { FaUserFriends } from 'react-icons/fa'
+import { getAuth } from "firebase/auth";
 // read data from realdatabase
-import { getDatabase, ref, onValue , set , push} from "firebase/database";
+import { getDatabase, ref, onValue, set, push } from "firebase/database";
 import { useEffect } from 'react'
 import { useState } from 'react'
 
@@ -16,21 +17,22 @@ const UserList = () => {
 
     let auth = getAuth();
     // read data from realdatabase
-    const [userLitFromDB , setUserLitFromDB] = useState([])
+    const [userLitFromDB, setUserLitFromDB] = useState([])
     const [friendRequest, setFriendRequest] = useState([])
-    const [change, setChange] = useState(false)
+    const [removeFrinedsUSerList, setRemoveFrinedsUSerList] = useState([])
+    const [change, setChange] = useState(true)
     const db = getDatabase();
 
 
 
 
-    useEffect(()=>{
-            
+    useEffect(() => {
+
         // ekhane userArry name ekta variable nichi. forEach lopp use kore database theke anar por then userArry er moddhe push kora hoice,,,then setUserLitFromDB er moddhe assigned korechi
         let userArry = []
         const userRef = ref(db, 'USERS/');
         onValue(userRef, (snapshot) => {
-            snapshot.forEach((item)=>{
+            snapshot.forEach((item) => {
                 userArry.push({
                     username: item.val().username,
                     email: item.val().email,
@@ -38,9 +40,9 @@ const UserList = () => {
                 })
             })
             setUserLitFromDB(userArry)
-           
-          });
-    },[])
+
+        });
+    }, [])
 
 
 
@@ -52,9 +54,9 @@ const UserList = () => {
         onValue(FriendRequestRef, (snapshot) => {
 
             snapshot.forEach((item) => {
-                
-                requestArr.push(item.val().ReciverID+item.val().SendeID)  // ekhane sorasori reciver id proyojon ei jnno array use korci just,,,
-                
+
+                requestArr.push(item.val().ReciverID + item.val().SendeID)  // ekhane sorasori reciver id proyojon ei jnno array use korci just,,,
+
             })
             // const data = snapshot.val();
             // console.log("FriendRequest",data)
@@ -63,7 +65,28 @@ const UserList = () => {
 
         });
     }, [change]) //chnage er mane holo requester er + icon click korar por check icon cole asbe,,mane ei reload er sathe sathe kaj korbe
-    
+
+
+
+    // ekhane useEffect er mane holo jokhn user list theke requ diye sei fnd accept krbe tokhn sei fnd ta friends list add hye jabe,,,tar sathe sathe jno userlist theke request dewya 
+    // option jno off hye jai,,,,fole tkhn er thake r request dewya jabe na
+    useEffect(() => {
+        const removeUserlistArr = []
+        const removeUserlistRef = ref(db, 'Friends/');
+        onValue(removeUserlistRef, (snapshot) => {
+
+            snapshot.forEach((item) => {
+
+                removeUserlistArr.push(item.val().ReciverID + item.val().SenderID)  // ekhane sorasori reciver id proyojon ei jnno array use korci just,,,
+
+            })
+
+            setRemoveFrinedsUSerList(removeUserlistArr)
+            console.log("setRemoveFrinedsUSerList", removeUserlistArr)
+
+        });
+    }, [])
+
 
 
 
@@ -72,9 +95,9 @@ const UserList = () => {
 
 
     // Friend Request start
-    let handleFriendRequest = (info)=>{
-        console.log("done", info)
-        const RequListRef = ref(db,'FriendRequests/') //ekhane mane holo REALTIME DATABASE e file create kore
+    let handleFriendRequest = (info) => {
+        // console.log("done", info)
+        const RequListRef = ref(db, 'FriendRequests/') //ekhane mane holo REALTIME DATABASE e file create kore
         const PerRequList_Auto_Generated_ID = push(RequListRef) //etar mane holo j,,amra jokhn registration kori then sei info REALTIME DATABASE e jauyarpor ekta id create kore,,
         // ekhaner push mane holo friendrequest jare jare patacii tader prottekr info er jnno auto id create kore dicce
 
@@ -83,9 +106,9 @@ const UserList = () => {
         //     ReciverID: info.id,
         //     SendeID: auth.currentUser.uid    
         //   });
-        
 
-          set(PerRequList_Auto_Generated_ID, {
+
+        set(PerRequList_Auto_Generated_ID, {
             // Name: auth.currentUser.displayName,
             SenderID: auth.currentUser.uid,
             SenderName: auth.currentUser.displayName,
@@ -97,11 +120,11 @@ const UserList = () => {
             position: 'top-end',
             icon: 'success',
             title: info.username,
-            text:"friend requested",
+            text: "friend requested",
             // title: 'friend request done',
             showConfirmButton: false,
             timer: 1500
-          })
+        })
     }
 
 
@@ -121,36 +144,47 @@ const UserList = () => {
 
             </Grid>
 
-        
-            
+
+
             {
-                userLitFromDB.map(item=>(
-                    auth.currentUser.uid !==item.id && //etar mane holo j,,,ami nijei to user,,,so , user list e to r amr list thakbe nah,,,nijeke to r nije requ dite parbo nah
+                userLitFromDB.map(item => (
+                    auth.currentUser.uid !== item.id && //etar mane holo j,,,ami nijei to user,,,so , user list e to r amr list thakbe nah,,,nijeke to r nije requ dite parbo nah
                     <Grid container spacing={2} className="box">
                         <Grid item xs={3} className='image' style={{ marginTop: "5px" }}>
                             <img src="./images/requ1.png" alt="" />
                         </Grid>
                         <Grid item xs={6} className="name">
-                            <h2>{item.username}</h2>    
+                            <h2>{item.username}</h2>
                             <h5>{item.id}</h5>
-                            
+
                         </Grid>
-                        {
-                            friendRequest.includes(item.id+auth.currentUser.uid) || friendRequest.includes(auth.currentUser.uid+item.id) ?
-                            <Grid item xs={3} className="button">
-                            <button onClick={()=>handleFriendRequest(item)}><BsCheckLg></BsCheckLg></button>
-                            </Grid>
-                            :
-                            <Grid item xs={3} className="button">
-                            <button onClick={()=>handleFriendRequest(item)}><AiOutlinePlus></AiOutlinePlus></button>
-                            </Grid>
-                            
-                           
-                        }
-                    </Grid>
-            ))}
 
             
+
+                        {
+                            removeFrinedsUSerList.includes(item.id + auth.currentUser.uid) || removeFrinedsUSerList.includes(auth.currentUser.uid + item.id)
+                                ?
+                                    <Grid item xs={3} className="button">
+                                        <button> <FaUserFriends></FaUserFriends></button>
+                                    </Grid>
+                                :
+                                friendRequest.includes(item.id + auth.currentUser.uid) || friendRequest.includes(auth.currentUser.uid + item.id) ?
+                                    <Grid item xs={3} className="button">
+                                        <button ><BsCheckLg></BsCheckLg></button>
+                                    </Grid>
+                                    :
+                                    <Grid item xs={3} className="button">
+                                        <button onClick={() => handleFriendRequest(item)}><AiOutlinePlus></AiOutlinePlus></button>
+                                    </Grid>
+
+
+                        } 
+
+                    </Grid>
+                ))}
+
+
+
 
 
 

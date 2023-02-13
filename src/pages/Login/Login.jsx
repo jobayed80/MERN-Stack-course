@@ -485,7 +485,7 @@ const Login = () => {
                             <span>:</span>
                             <span>{seconds}</span>
                         </h1>
-
+ 
                         <button onClick={resendOTP}>Resends OTP</button>
                         <button onClick={hadleLogout}>Logout</button>
 

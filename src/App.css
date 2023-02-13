@@ -1,0 +1,44 @@
+
+
+ .AppDark{
+    background: #000;
+    color: aliceblue !important;
+}
+.AppDark h2{
+    color: #f3eded !important;
+}
+.AppDark h4{
+    color: #837b7b !important;
+}
+.AppDark h5{
+    color: #797373 !important;
+}
+.AppDark .gruopList,
+.AppDark .friendRequest,
+.AppDark .friendList,
+.AppDark .userList{
+    box-shadow: 4px 2px 29px 0px rgba(230, 150, 150, 0.4);
+}
+.AppLight{
+    background: #fff;
+   
+}
+
+
+
+.off , .on{
+    font-size: 40px;
+}
+
+.on{
+    color: aliceblue;
+}
+
+.dlMode{
+    position: absolute;
+    top: -19px;
+    left: 40px;
+    
+    cursor: pointer;
+}
+

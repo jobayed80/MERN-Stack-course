@@ -12,6 +12,7 @@ import {signOut , getAuth , onAuthStateChanged} from 'firebase/auth'
 import { useEffect } from 'react'
 import {Modal , Box} from '@mui/material'
 import './Leftbar.css'
+import moment from 'moment';
  
 
 const Leftbar = (props) => {
@@ -24,15 +25,15 @@ const Leftbar = (props) => {
 
   let [disPlayName , setDisplayName] = useState('')
   let [pic , setPic] = useState('')
+  let [email,setEmail] = useState('')
+  let [userID,setUseID] = useState("")
+  let [creationTime , setCreationTime] = useState('')
+  let [lastSignInTime , setlLastSignInTime] = useState("")
 
-
-
-
-
-  
 
   let SigninUser_Logout_Check = () => {
     const user = auth.currentUser;
+    // console.log("USER",user) 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // setEmailVerification(userail.emVerified) //if the emailVerified is false then this statement is working
@@ -49,10 +50,13 @@ const Leftbar = (props) => {
                       //   console.log("veri hoi ni")
                       //   // verificationEmail()
                       // }
-                      console.log("start Leftbar.js")
+                      
                       setDisplayName(user.displayName)
-                      console.log(user.photoURL)
+                      setUseID(user.uid)
                       setPic(user.photoURL)
+                      setEmail(user.email)
+                      setCreationTime(user.metadata.creationTime)
+                      setlLastSignInTime(user.metadata.lastSignInTime)
                       
       } else {
         // etar mane holo jodi keu login na kore sorasori home page e aste cai,,but parben na
@@ -127,21 +131,38 @@ const Leftbar = (props) => {
   }
 
 
-
   let handleClose = () =>{
     setOpen(false)
   }
 
-  let handleOpen = () =>{
+  let handleModalOpen = () =>{
     setOpen(true)
+
+    // ekahne GMTY time k convert kore BD Time kora hoice....
+    let GMT_DHAKAtime_lastSignInTime = moment(lastSignInTime).utcOffset(lastSignInTime)
+    // console.log("sfnwesaidhjsufsvo", date.format('DD/MM/YYYY HH:mm'))
+    
+    var Meldungstext = "";
+    Meldungstext = Meldungstext +"Email ID : " +email +"<br>"
+    Meldungstext = Meldungstext +"User ID : "+userID  +"<br>"
+    Meldungstext = Meldungstext + "Creation Time : " + creationTime + "<br>"
+    // Meldungstext = Meldungstext + "Last SignIn Time : " + lastSignInTime + "<br>"
+    Meldungstext = Meldungstext + "Last SignIn Time : " +GMT_DHAKAtime_lastSignInTime.format('DD/MM/YYYY HH:mm:ss') + "<br>"
+
+
+  
+
     Swal.fire({
-      title: disPlayName,
-      text: 'Modal with a custom image.',
       imageUrl: pic,
-      imageWidth: 200,
-      imageHeight: 200,
+      imageAlt: 'Custom image',
+      title: disPlayName,
+      html: Meldungstext,
+      imageWidth: 100,
+      imageHeight: 100,
       imageRadious:50,
       imageAlt: 'Custom image',
+      imageClass:'img-responsive rounded-circle',        
+      animation: true 
     })
   }
 
@@ -174,8 +195,9 @@ const Leftbar = (props) => {
       </div>
 
         <div className='image'>
-            <img src={pic} onClick={handleOpen} style={{cursor:"pointer"}}></img>
-            <div onClick={handleOpen} className='display-Name'>{disPlayName}</div>
+            <img src={pic} onClick={handleModalOpen} style={{cursor:"pointer"}}></img>
+            <div onClick={handleModalOpen} className='display-Name'>{disPlayName}</div>
+            <small style={{color:"white", fontSize:"10px"}}>{email}</small>
         </div>
         <div className='list-icons'>
             <ul className='icon'>
