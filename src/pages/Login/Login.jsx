@@ -49,6 +49,7 @@ const style = {
 const Login = () => {
 
     const auth = getAuth(); //Firebse
+    console.log("Jobayed", auth)
     const navigate = useNavigate()
     const [open, setOpen] = React.useState(false); //this for alert notice
     const [key, setKey] = useState('home');
